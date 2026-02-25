@@ -70,9 +70,15 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
     }
 
     // Heap Methods //
-    protected void swap(Position<Entry<K, V>> a, Position<Entry<K, V>> b) {}
+    protected void swap(Position<Entry<K, V>> a, Position<Entry<K, V>> b) {
+        Position<Entry<K, V>> temp = a;
+        heap.replace(a, b.element());
+        heap.replace(b, temp.element());
+    }
 
-    protected void upHeap() {}
+    protected void upHeap() {
+        Position<Entry<K, V>> last = heap.size();
+    }
 
     protected void downHeap() {
         Position<Entry<K, V>> root = heap.root();
@@ -90,5 +96,11 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
                 if (comparison > 0) smaller = heap.left(smaller);
             }
         }
+        if (heap.hasLeft(smaller)) {
+            K leftKey = heap.left(smaller).element().getKey();
+            comparison = comp.compare(leftKey, rootKey);
+            if (comparison > 0) smaller = heap.left(smaller);
+        }
+        swap(root, smaller);
     }
 }
