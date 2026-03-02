@@ -52,8 +52,8 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
     public Entry<K, V> insert(K key, V value) throws InvalidKeyException {
         //Adds a new entry to the bottom of the heap
         MyEntry<K, V> entry = new MyEntry<K, V>(key, value);
-        heap.add(entry);
-        upHeap();
+        upHeap(heap.add(entry));
+        size++;
         return entry;
     }
 
@@ -65,42 +65,60 @@ public class HeapPriorityQueue<K, V> implements PriorityQueue<K, V> {
     public Entry<K, V> removeMin() throws EmptyPriorityQueueException {
         //Removes and returns the minimum entry
         Entry<K, V> min = heap.replace(heap.root(), heap.remove());
-        downHeap();
+        if(size > 1) downHeap(heap.root());
+        size--;
         return min;
     }
 
     // Heap Methods //
     protected void swap(Position<Entry<K, V>> a, Position<Entry<K, V>> b) {
-        Position<Entry<K, V>> temp = a;
+        Entry<K, V> temp = a.element();
         heap.replace(a, b.element());
-        heap.replace(b, temp.element());
+        heap.replace(b, temp);
     }
 
-    protected void upHeap() {
-        Position<Entry<K, V>> last = heap.size();
+    protected void upHeap(Position<Entry<K,V>> v) {
+        Position<Entry<K, V>> u;
+        while(!heap.isRoot(v)){
+          u=heap.parent(v);
+          if(comp.compare(u.element().getKey(), v.element().getKey()) <=0) break;
+          swap(u,v);
+          v=u;
+        }
     }
 
-    protected void downHeap() {
-        Position<Entry<K, V>> root = heap.root();
-        K rootKey = root.element().getKey();
-        int comparison = 1;
-        Position<Entry<K, V>> smaller = root;
-        while (heap.hasRight(smaller) && comparison > 0) {
-            K leftKey = heap.left(smaller).element().getKey();
-            K rightKey = heap.right(smaller).element().getKey();
-            if (comp.compare(leftKey, rightKey) >= 0) {
-                comparison = comp.compare(leftKey, rootKey);
-                if (comparison > 0) smaller = heap.left(smaller);
-            } else {
-                comparison = comp.compare(rightKey, rootKey);
-                if (comparison > 0) smaller = heap.left(smaller);
-            }
+    protected void downHeap(Position<Entry<K,V>> r) {
+        while(heap.isInternal(r)){
+          Position<Entry<K, V>> s;
+          if(!heap.hasRight(r)) s = heap.left(r);
+          else if(comp.compare(heap.left(r).element().getKey(), heap.right(r).element().getKey()) <=0) s = heap.left(r);
+          else s = heap.right(r);
+          if(comp.compare(s.element().getKey(), r.element().getKey()) <=0) {
+            swap(r,s);
+            r=s;
+          }
+          else break;
         }
-        if (heap.hasLeft(smaller)) {
-            K leftKey = heap.left(smaller).element().getKey();
-            comparison = comp.compare(leftKey, rootKey);
-            if (comparison > 0) smaller = heap.left(smaller);
-        }
-        swap(root, smaller);
     }
+    
+    public static void main(String[] args) {
+      HeapPriorityQueue<Integer, Integer> pq = new HeapPriorityQueue<>();
+      Random rand = new Random();
+      
+      System.out.println("Putting numbers into heap\n");
+      for (int i = 0; i < 15; i++) {
+        System.out.println();
+        for(int j = 0; j < 15; j++) System.out.print(pq.insert(rand.nextInt(999), 1).getKey() + ", ");
+      }
+      System.out.println("\n\nSorting Entries\n");
+      for (int i = 0; i < 15; i++) {
+        System.out.println();
+        for (int j = 0; j < 15; j++) 
+          if(!pq.isEmpty())
+            System.out.print(pq.removeMin().getKey() + ", ");
+      }
+      
+      System.out.println("\n");
+    }
+    
 }
