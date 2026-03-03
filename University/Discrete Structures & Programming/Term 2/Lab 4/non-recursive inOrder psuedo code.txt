@@ -1,0 +1,16 @@
+Algorithm inOrder(v)
+    S = new Stack
+    S add v
+    While S is not empty
+        While v has left and left is not visited
+            v = v left
+            S add v
+        If v has right and right is not visited
+            visit(v)
+            S pop
+            v = v right
+            S add v
+        Else
+            visit(v)
+            S pop
+            v = S top
