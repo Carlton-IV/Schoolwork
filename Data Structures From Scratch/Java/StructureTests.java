@@ -37,6 +37,8 @@ public class StructureTests {
                 case "doublenode":
                     doubleNode();
                     break;
+                case "quit":
+                    System.exit(0);
                 default:
                     valid = false;
                     System.out.println(
@@ -97,17 +99,33 @@ public class StructureTests {
         node.setNext(node2);
         node2.setNext(node3);
 
+        System.out.println("\nPrinting node's element: " + node.getElement());
         System.out.println(
             "\nPrinting node.getNext's element: " + node.getNext().getElement()
         );
         System.out.println(
-            "\nPrinting node2.getNext's element: " +
-                node2.getNext().getElement()
+            "Printing node.getNext.getNext's element: " +
+                node.getNext().getNext().getElement()
+        );
+        System.out.println(
+            "Printing node.getNext.getNext.getNext's element: " +
+                node.getNext().getNext().getNext().getElement()
+        );
+        System.out.println(
+            "\nPrinting node.getPrev's element: " + node.getPrev().getElement()
+        );
+        System.out.println(
+            "Printing node.getPrev.getPrev.getPrev's element: " +
+                node.getPrev().getPrev().getPrev().getElement()
         );
         System.out.println("\nMaking node point to itself\n");
         node.setNext(node);
+        node.setPrev(node);
         System.out.println(
             "Printing node.getNext's element: " + node.getNext().getElement()
+        );
+        System.out.println(
+            "Printing node.getPrev's element: " + node.getNext().getElement()
         );
         System.out.println();
     }
