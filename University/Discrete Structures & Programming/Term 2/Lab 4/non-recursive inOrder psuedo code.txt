@@ -1,16 +1,25 @@
 Algorithm inOrder(v)
+    A = new Arraylist
     S = new Stack
     S add v
     While S is not empty
-        While v has left and left is not visited
+        visited = false
+        for each in A
+            if each == v left
+                visited = true
+        While v has left and not visited
             v = v left
             S add v
-        If v has right and right is not visited
-            visit(v)
+        visited = false
+        for each in A
+            if each == v right
+                visited = true
+        If v has right and not visited
+            A add v
             S pop
             v = v right
             S add v
         Else
-            visit(v)
+            A add v
             S pop
             v = S top
