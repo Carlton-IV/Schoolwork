@@ -36,26 +36,28 @@ public class BinarySearchTree<E> extends LinkedBinaryTree<E> {
     public static void main(String[] args) {
         BinarySearchTree<Integer> intSearch = new BinarySearchTree<>();
         ArrayList<Position<Integer>> sorted = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
+        System.out.println("Unsorted:");
+        for (int i = 0; i < 10; i++) {
             System.out.println();
-            for (int j = 0; j < 15; j++) System.out.print(
+            for (int j = 0; j < 10; j++) System.out.print(
                 intSearch.insert((int) (Math.random() * 1000)).element() + ", "
             );
         }
         System.out.println("\n");
+        System.out.println("Sorted:\n");
         intSearch.inorderPositions(intSearch.root(), sorted);
         int count = 0;
         for (Position<Integer> pos : sorted) {
             System.out.print(pos.element() + ", ");
             count++;
-            if (count == 15) {
+            if (count == 10) {
                 count = 0;
                 System.out.println();
             }
         }
 
         System.out.println("\n\n");
-
+        System.out.println("Unsorted:\n");
         BinarySearchTree<String> strSort = new BinarySearchTree<>();
         ArrayList<Position<String>> sortedStr = new ArrayList<>();
         System.out.print(strSort.insert("Hayden").element() + ", ");
@@ -76,9 +78,11 @@ public class BinarySearchTree<E> extends LinkedBinaryTree<E> {
         System.out.print(strSort.insert("Madison").element() + ", ");
         System.out.print(strSort.insert("JP").element() + ", ");
         System.out.println("\n");
+        System.out.println("Sorted:\n");
         strSort.inorderPositions(strSort.root(), sortedStr);
         for (Position<String> pos : sortedStr) {
             System.out.print(pos.element() + ", ");
         }
+        System.out.println("\n\n\n");
     }
 }
