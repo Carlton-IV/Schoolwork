@@ -13,4 +13,4 @@ d) ~~all items would be double themselves, making every entry even~~ not valid
 B will distribute the keys most uniformly
 
 2. `Consider a hash table with 100 slots. Collisions are resolved by chaining. Assume simple uniform hashing, what is the probability that the first 3 slots are unfilled after the 3 insertions?`
-97/100 x 97/100 x 97/100
+97/100 x 97/100 x 97/100 = 97^3/1000000
