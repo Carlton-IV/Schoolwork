@@ -159,7 +159,7 @@ public class HashTableMap<K, V> {
     }
 
     public static void main(String[] args) {
-        HashTableMap<Integer, Integer> M = new HashTableMap(7);
+        HashTableMap<Integer, Integer> M = new HashTableMap<>(7);
         M.put(5, 6);
         M.put(4, 7);
 
