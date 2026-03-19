@@ -54,6 +54,7 @@ public class HashTableMap<K, V> {
     }
 
     /** Creates a hash table with the given capacity. */
+    @SuppressWarnings("unchecked")
     public HashTableMap(int cap) {
         capacity = cap;
         bucket = (Entry<K, V>[]) new Entry[capacity]; // safe cast
@@ -144,8 +145,22 @@ public class HashTableMap<K, V> {
     }
 
     /** Doubles the size of the hash table and rehashes all the entries. */
+    @SuppressWarnings("unchecked")
     protected void rehash() {
-        // your work is here
+        capacity = 2*capacity;
+        Entry<K, V>[] old = bucket;
+        bucket = (Entry<K,V>[]) new Entry[capacity];
+        Random rand = new Random();
+        scale = rand.nextInt(capacity - 1) + 1;
+        shift = rand.nextInt(capacity);
+        for (int i = 0; i < old.length; i++) {
+          Entry<K,V> e = old[i];
+          if ((e != null) && (e != AVAILABLE)) {
+            int j = - 1 - findEntry(e.getKey());
+            bucket[j] = e;
+          }
+        }
+        
     }
 
     /** Removes the key-value pair with a specified key. */

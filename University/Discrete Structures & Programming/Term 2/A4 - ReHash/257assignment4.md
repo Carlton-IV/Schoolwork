@@ -15,8 +15,8 @@ that identifies the top log n flyers in O(n) time.
 a set of n distinct integers in
 O(n + k log n) time.
 
-`Answer: build a new heap using the given set of n distinct integers, a reversed comparitor (where 1 > 2 etc.), and the bottom up method. Call removeMin() k-1 times, discarding the outputs. Finally call removeMin() one last time, and store the result.`
+`Answer: build a new heap using the given set of n distinct integers, a reversed comparitor (where 1 > 2 etc.), and the bottom up method. Call removeMin() k-1 times, discarding the outputs. Finally call removeMin() one last time, and store/return the result.`
 
 3. Part II codings.
 
-Complete the rehash method in HashTableMap.java
+Complete the findEntry and rehash method in HashTableMap.java
